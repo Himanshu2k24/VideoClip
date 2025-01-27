@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from threading import Thread
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
-from telegram.ext import Updater, MessageHandler, filters, CommandHandler
+from telegram.ext import Application, MessageHandler, filters, CommandHandler
 
 app = Flask(__name__)
 
@@ -63,14 +63,12 @@ def start(update, context):
 def run_telegram_bot():
     API_TOKEN = "7729792798:AAFCEjMfSMqy9tpXw0SPGJ5QC1rW5DqkazU"
 
-    updater = Updater(API_TOKEN, use_context=True)
-    dp = updater.dispatcher
+    application = Application.builder().token(API_TOKEN).build()
 
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(MessageHandler(filters.Video | filters.Document, split_video))
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(MessageHandler(filters.VIDEO | filters.Document.ALL, split_video))
 
-    updater.start_polling()
-    updater.idle()
+    application.run_polling()
 
 @app.route("/")
 def health_check():
