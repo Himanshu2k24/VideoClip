@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from threading import Thread
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
-from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
+from telegram.ext import Updater, MessageHandler, filters, CommandHandler
 
 app = Flask(__name__)
 
@@ -67,7 +67,7 @@ def run_telegram_bot():
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(MessageHandler(Filters.video | Filters.document, split_video))
+    dp.add_handler(MessageHandler(filters.Video | filters.Document, split_video))
 
     updater.start_polling()
     updater.idle()
