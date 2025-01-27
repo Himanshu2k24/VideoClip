@@ -61,7 +61,7 @@ def start(update, context):
     update.message.reply_text("Welcome! Send me a video, and I'll split it into 45-second parts with watermarks.")
 
 def run_telegram_bot():
-    API_TOKEN = "YOUR_TELEGRAM_BOT_API_TOKEN"
+    API_TOKEN = "7729792798:AAFCEjMfSMqy9tpXw0SPGJ5QC1rW5DqkazU"
 
     updater = Updater(API_TOKEN, use_context=True)
     dp = updater.dispatcher
